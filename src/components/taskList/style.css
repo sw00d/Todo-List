@@ -1,0 +1,29 @@
+ul {
+    width: 50%;
+}
+li {
+    border: #424242 1px solid;
+    display: flex;
+    position: relative;
+}
+.ArrowContainer {
+    height: 100%;
+    position: absolute;
+    right: 0px;
+}
+.ArrowContainer > button {
+    height: 100%;
+    outline: none;
+    border: none;
+    color: #424242;
+    width: 40px;
+    background: white;
+}
+.ArrowContainer >button:hover {
+    color: lightgrey;
+}
+.ArrowContainer >button:disabled {
+    color: gainsboro;
+}
+
+
