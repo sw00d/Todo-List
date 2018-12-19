@@ -39,7 +39,7 @@ export default class List extends Component {
       const {tasks, down, up} = this.props;
       const {moveDisable} = this.state;
       return (
-        <ul>
+        <div className="MainContainer">
         {
           tasks.map((text,i)=>
           {
@@ -49,7 +49,7 @@ export default class List extends Component {
                   <input className="CheckBox" type="checkbox" />
                   <span className="checkmark" onClick={(e)=>this.checkItem(e)}></span>
                 </div>
-                <p>{text}</p>
+                <input placeholder={text} type="text" />
                 <div className="ArrowContainer">
                   <button disabled={ moveDisable } onClick={(e)=>
                   {
@@ -69,8 +69,8 @@ export default class List extends Component {
             )
           })
         }
-        <li><Input /></li>
-        </ul>
+        <div className="Row"><Input /></div>
+        </div>
       );
     }
   }

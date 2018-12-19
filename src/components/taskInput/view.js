@@ -25,15 +25,20 @@ class Input extends Component {
 
   render() {
     return (
-      <div>
-        <input 
-          className="TaskInput"
-          onKeyPress={this.handleKeyPress} 
-          onChange={(e)=>this.setState({task: e.target.value})} 
-          placeholder="Enter task to add"
-          value = {this.state.task}
-        />
-        <GoPlus className="AddBtn" onClick={this.addTask} />
+      <div className="InputContainer">
+        <div className="checkContainer TaskInputContainer">
+          <input 
+            className="TaskInput"
+            onKeyPress={this.handleKeyPress} 
+            onChange={(e)=>this.setState({task: e.target.value})} 
+            placeholder="Enter task to add"
+            value = {this.state.task}
+            />
+        </div>
+        <div className="AddTaskContainer">
+          <GoPlus className="AddBtn" onClick={this.addTask} />
+        </div>
+
       </div>
     );
   }
