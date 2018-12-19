@@ -14,18 +14,26 @@ export default class List extends Component {
     }
 
     //This disables buttons by checking if any inputs are checked
-    check(e){
-      // const ul = e.target.parentElement.parentElement.children;
-      // let bool;
-      // //checkbox always has to be first element in <li>
-      // for (let i = 0; i < ul.length; i++){
-      //   console.log(ul[i].children[0].children[0])
-      //   if (ul[i].children[0].children[0].checked){
-      //     bool = true;
-      //     break;
-      //   } else bool = false;
-      // }
-      // this.setState({moveDisable: bool});
+    ifChecked(e){
+      const ul = e.parentElement.parentElement.children;
+      let bool;
+
+      //checkbox always has to be first element in <li>
+      for (let i = 0; i < ul.length; i++){
+        const checked = ul[i].children[0].children[0].checked;
+
+        if (checked){
+          bool = true;
+          break;
+        } else bool = false;
+      }
+      this.setState({moveDisable: bool});
+    }
+
+    checkItem(e) {
+      // console.log(e.target.parentElement)
+      e.target.parentElement.children[0].checked = !e.target.parentElement.children[0].checked;
+      this.ifChecked(e.target.parentElement);
     }
     render() {
       const {tasks, down, up} = this.props;
@@ -36,10 +44,10 @@ export default class List extends Component {
           tasks.map((text,i)=>
           {
             return (
-              <li key={i}>
-                <div className="checkContainer" onClick={(e)=>this.check(e)}>
+              <div className="Row" key={i}>
+                <div className="checkContainer">
                   <input className="CheckBox" type="checkbox" />
-                  <span className="checkmark"></span>
+                  <span className="checkmark" onClick={(e)=>this.checkItem(e)}></span>
                 </div>
                 <p>{text}</p>
                 <div className="ArrowContainer">
@@ -57,7 +65,7 @@ export default class List extends Component {
                     }
                   }><FaAngleDown /></button>
                 </div>
-              </li>
+              </div>
             )
           })
         }

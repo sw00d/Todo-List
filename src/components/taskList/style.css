@@ -1,7 +1,10 @@
 ul {
     width: 50%;
 }
-li {
+.CheckBox {
+    display: none;
+}
+.Row {
     border: #424242 1px solid;
     display: flex;
     position: relative;
