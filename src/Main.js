@@ -23,14 +23,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <DragDropContext
-          onBeforeDragStart={this.onBeforeDragStart}
-          onDragStart={this.onDragStart}
-          onDragUpdate={this.onDragUpdate}
-          onDragEnd={this.onDragEnd}
-        >
           <TaskList />
-        </DragDropContext>
       </Provider>
     );
   }
