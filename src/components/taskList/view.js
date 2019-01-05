@@ -27,11 +27,14 @@ const getItemStyle = (draggableStyle, isDragging) => ({
   // styles we need to apply on draggables
   ...draggableStyle
 });
-const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  padding: grid,
-  width: 250
-});
+const getListStyle = (isDraggingOver) => {
+  console.log(isDraggingOver)
+  return {
+    background: isDraggingOver ? 'lightblue' : 'lightgrey',
+    padding: grid,
+    width: 250
+  }
+};
 
 
 
@@ -44,9 +47,9 @@ export default class List extends Component {
     
     this.checkItem = this.checkItem.bind(this);
   }
-    onDragEnd = () => {
+    onDragEnd = (result) => {
         // the only one that is required
-        console.log("hello")
+        console.log(this.props.tasks, result.source.index, result.destination.index);
       };
 
     //This disables buttons by checking if any inputs are checked
@@ -73,109 +76,58 @@ export default class List extends Component {
       return (
         <DragDropContext onDragEnd={this.onDragEnd}>
 
-        <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
-            >
-              {tasks.map((text, i) => (
-                <Draggable
-                  key={i}
-                  index={i}
-                  draggableId={i+1}
-                >
-                  {(provided, snapshot) => (
-                    <div>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div
+                ref={provided.innerRef}
+                style={getListStyle(snapshot.isDraggingOver)}
+              >
+                {tasks.map((text, i) => (
+
+                  <Draggable
+                    key={i}
+                    index={i}
+                    draggableId={i+1}
+                  >
+                    {(provided, snapshot) => (
                       <div
                         ref={provided.innerRef}
-                        style={getItemStyle(
-                          provided.draggableProps.style,
-                          snapshot.isDragging
-                        )}
+                        {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        <div className="checkContainer">
-                <input className="CheckBox" type="checkbox" />
-                <span className="checkmark" onClick={(e)=>this.checkItem(e)}></span>
-              </div>
-              <input placeholder={text} type="text" />
-              <div className="ArrowContainer">
-                <button disabled={ moveDisable } onClick={(e)=>
-                {
-                  up(i); 
-                  e.stopPropagation()
-                  }
-                }><FaAngleUp /></button>
-
-                <button disabled={ moveDisable } onClick={(e)=>
-                {
-                  down(i) 
-                  e.stopPropagation()
-                  }
-                }><FaAngleDown /></button>
-              </div>
-                      </div>
-                      {provided.placeholder}
+                      {text}
                     </div>
-                  )}
-                </Draggable>
-              ))}
-            <div className="Row"><Input /></div>
-            </div>
-          )}
-        </Droppable>
+                    )}
+                  </Draggable>
+
+                ))}
+              <div className="Row"><Input /></div>
+              </div>
+            )}
+          </Droppable>
         </DragDropContext>
 
 
       );
     }
   }
+  // <div className="checkContainer">
+  //   <input className="CheckBox" type="checkbox" />
+  //   <span className="checkmark" onClick={(e)=>this.checkItem(e)}></span>
+  // </div>
+  // <input placeholder={text} type="text" />
+  // <div className="ArrowContainer">
+  //   <button disabled={ moveDisable } onClick={(e)=>
+  //   {
+  //     up(i); 
+  //     e.stopPropagation()
+  //     }
+  //   }><FaAngleUp /></button>
 
-  //<Task 
-  //   checkItem={this.checkItem} 
-  //   key={i} 
-  //   text={text} 
-  //   i={i} 
-  //   props={this.props} 
-  //   moveDisable={this.state.moveDisable}
-  // />
-
-
-  // class Task extends Component {
-
-  //   render() {
-  //     const {down, up} = this.props.props;
-  //     const {i, checkItem, moveDisable} = this.props;
-
-  //     return (
-  //       <Draggable draggableId="draggable-1"  draggable="draggable-1" index={0}>
-  //         {(provided, snapshot) => (
-  //           <div className="Row" ref={provided.innerRef} {...provided.draggableProps}>
-              // <div className="checkContainer">
-              //   <input className="CheckBox" type="checkbox" />
-              //   <span className="checkmark" onClick={(e)=>checkItem(e)}></span>
-              // </div>
-              // <input placeholder={this.props.text} type="text" />
-              // <div className="ArrowContainer">
-              //   <button disabled={ moveDisable } onClick={(e)=>
-              //   {
-              //     up(i); 
-              //     e.stopPropagation()
-              //     }
-              //   }><FaAngleUp /></button>
-
-              //   <button disabled={ moveDisable } onClick={(e)=>
-              //   {
-              //     down(i) 
-              //     e.stopPropagation()
-              //     }
-              //   }><FaAngleDown /></button>
-              // </div>
-  //           </div>
-  //         )}
-  //       </Draggable>
-  //     )
-  //   }
-  // }
-  
+  //   <button disabled={ moveDisable } onClick={(e)=>
+  //   {
+  //     down(i) 
+  //     e.stopPropagation()
+  //     }
+  //   }><FaAngleDown /></button>
+  // </div>
