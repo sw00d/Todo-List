@@ -1,8 +1,10 @@
 import { ADD_TASK } from "../components/taskInput/actions"
 import { CHANGE_TASK_ORDER } from "../components/taskList/actions"
 
+
 export default (state = {
-  tasks:['ONE', 'TWO', 'THREE', 'FOUR']
+  tasks:[
+    {value: 'one', checked: false}, {value: 'two', checked: false}, {value: 'three', checked: false}, {value: 'four', checked: false}]
   }
   , action) => {
   switch(action.type){

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Style from './style.css';
 import CheckBoxStyle from './CheckBoxStyle.css';
 import Input from '../taskInput';
-import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { FaAngleDown, FaAngleUp, FaTextHeight } from 'react-icons/fa';
 import { Droppable, Draggable, DragDropContext } from 'react-beautiful-dnd';
 
 const reorder =  (list, startIndex, endIndex) => {
@@ -28,7 +28,6 @@ const getItemStyle = (draggableStyle, isDragging) => ({
   ...draggableStyle
 });
 const getListStyle = (isDraggingOver) => {
-  console.log(isDraggingOver)
   return {
     background: isDraggingOver ? 'lightblue' : 'lightgrey',
     padding: grid,
@@ -42,37 +41,41 @@ export default class List extends Component {
   constructor(){
     super();
     this.state = {
-      moveDisable: false
-    }
-    
-    this.checkItem = this.checkItem.bind(this);
+      moveDisable: false,
+      edit: false,
+      dblclk: false
+    }    
   }
     onDragEnd = (result) => {
-        // the only one that is required
-        console.log(this.props.tasks, result.source.index, result.destination.index);
-      };
-
+      // the only one that is required
+      const { dragToMove } = this.props;
+      dragToMove(result.source.index, result.destination.index);
+    };
     //This disables buttons by checking if any inputs are checked
-    checkItem(e) {
-      const el = e.target.parentElement.parentElement.parentElement;
-      e.target.parentElement.children[0].checked = !e.target.parentElement.children[0].checked;
-      let bool;
+    doubleClick() {
+      const self = this;
+      const { dblclk, edit } = this.state;
+      console.log("FIRE");
+      if (!dblclk) {
+        this.setState({dblclk: true});
+      } else {
+        this.setState({edit: true});
+      } 
       
-      // //checkbox always has to be first element in <li>
-      for (let i = 0; i < el.children.length; i++){
-        const checked = el.children[i].children[0].children[0].checked;
-        if (checked){
-          bool = true;
-          break;
-        } else bool = false;
+      setTimeout(()=>self.setState({dblclk: false}), 500);
+    }
+    handleKeyPress(e){
+      if (e.key === "Enter") {
+        this.setState({edit: false});
       }
-      // console.log(bool)
-      this.setState({moveDisable: bool});
+      if (e.target.value.length){
+        this.props.updateValue(e.target.placeholder, e.target.value);
+      }
     }
 
     render() {
-      const {tasks, down, up} = this.props;
-      const {moveDisable} = this.state;
+      const { tasks, down, up, checkItem } = this.props;
+      const { moveDisable, edit } = this.state;
       return (
         <DragDropContext onDragEnd={this.onDragEnd}>
 
@@ -82,8 +85,8 @@ export default class List extends Component {
                 ref={provided.innerRef}
                 style={getListStyle(snapshot.isDraggingOver)}
               >
-                {tasks.map((text, i) => (
-
+                {tasks.map((item, i) => (
+                  
                   <Draggable
                     key={i}
                     index={i}
@@ -93,10 +96,39 @@ export default class List extends Component {
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
-                        {...provided.dragHandleProps}
+                        {...provided.dragHandleProps}   
+                        className="Row"
                       >
-                      {text}
-                    </div>
+                        <div className="checkContainer">
+                          <input 
+                            className="CheckBox" 
+                            type="checkbox" 
+                            checked={item.checked} 
+                            onChange={()=>console.log("change")}
+                          />
+                          <span className="checkmark" onClick={(e)=>checkItem(item.value)}></span>
+                        </div>
+                        { edit ? 
+                          <input onKeyPress={(e)=>this.handleKeyPress(e)} placeholder={item.value} type="text" />
+                          : <div onClick={()=>this.doubleClick()}>{item.value}</div> 
+                        }
+                        
+                        <div className="ArrowContainer">
+                          <button disabled={ moveDisable } onClick={(e)=>
+                          {
+                            up(i); 
+                            e.stopPropagation()
+                            }
+                          }><FaAngleUp /></button>
+
+                          <button disabled={ moveDisable } onClick={(e)=>
+                          {
+                            down(i) 
+                            e.stopPropagation()
+                            }
+                          }><FaAngleDown /></button>
+                        </div>
+                       </div>
                     )}
                   </Draggable>
 
