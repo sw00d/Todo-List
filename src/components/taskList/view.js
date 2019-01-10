@@ -45,6 +45,8 @@ export default class List extends Component {
       edit: false,
       dblclk: false
     }    
+    this.input = React.createRef();
+
   }
     onDragEnd = (result) => {
       // the only one that is required
@@ -55,23 +57,26 @@ export default class List extends Component {
     doubleClick() {
       const self = this;
       const { dblclk, edit } = this.state;
-      console.log("FIRE");
       if (!dblclk) {
         this.setState({dblclk: true});
       } else {
         this.setState({edit: true});
+        setTimeout(()=>console.log(this.input),100);
       } 
       
       setTimeout(()=>self.setState({dblclk: false}), 500);
     }
     handleKeyPress(e){
-      if (e.key === "Enter") {
+      const { value } = e.target;
+      if (e.keyCode === 13 && value.length) {
         this.setState({edit: false});
+        return;
       }
-      if (e.target.value.length){
-        this.props.updateValue(e.target.placeholder, e.target.value);
-      }
+      // if (this.input.current) console.log(this.input.current);
+      if (e.keyCode === 8) this.props.updateValue(value, value.substring(0, value.length-1));
+      else if (e.keyCode >= 65 && e.keyCode <= 90) this.props.updateValue(value, value+e.key);
     }
+
 
     render() {
       const { tasks, down, up, checkItem } = this.props;
@@ -100,7 +105,8 @@ export default class List extends Component {
                         className="Row"
                       >
                         <div className="checkContainer">
-                          <input 
+                          <input
+                            ref={this.input} 
                             className="CheckBox" 
                             type="checkbox" 
                             checked={item.checked} 
@@ -109,7 +115,7 @@ export default class List extends Component {
                           <span className="checkmark" onClick={(e)=>checkItem(item.value)}></span>
                         </div>
                         { edit ? 
-                          <input onKeyPress={(e)=>this.handleKeyPress(e)} placeholder={item.value} type="text" />
+                          <input onKeyDown={(e)=>this.handleKeyPress(e)} value={item.value} type="text" />
                           : <div onClick={()=>this.doubleClick()}>{item.value}</div> 
                         }
                         
