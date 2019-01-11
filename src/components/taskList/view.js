@@ -16,22 +16,16 @@ const reorder =  (list, startIndex, endIndex) => {
 // using some little inline style helpers to make the app look okay
 const grid = 8;
 const getItemStyle = (draggableStyle, isDragging) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-  padding: grid * 2,
-  marginBottom: grid,
+
 
   // change background colour if dragging
   background: isDragging ? 'lightgreen' : 'grey',
 
-  // styles we need to apply on draggables
   ...draggableStyle
 });
 const getListStyle = (isDraggingOver) => {
   return {
     background: isDraggingOver ? 'lightblue' : 'lightgrey',
-    padding: grid,
-    width: 250
   }
 };
 
@@ -87,6 +81,7 @@ export default class List extends Component {
           <Droppable droppableId="droppable">
             {(provided, snapshot) => (
               <div
+                class="MainContainer"
                 ref={provided.innerRef}
                 style={getListStyle(snapshot.isDraggingOver)}
               >
@@ -116,7 +111,7 @@ export default class List extends Component {
                         </div>
                         { edit ? 
                           <input onKeyDown={(e)=>this.handleKeyPress(e)} value={item.value} type="text" />
-                          : <div onClick={()=>this.doubleClick()}>{item.value}</div> 
+                          : <p onClick={()=>this.doubleClick()}>{item.value}</p> 
                         }
                         
                         <div className="ArrowContainer">

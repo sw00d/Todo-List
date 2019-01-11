@@ -6,24 +6,12 @@ import './App.css';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 class App extends Component {
-  onBeforeDragStart = () => {
-    /*...*/
-  };
-
-  onDragStart = () => {
-    /*...*/
-  };
-  onDragUpdate = () => {
-    /*...*/
-  };
-  onDragEnd = () => {
-    // the only one that is required
-    console.log("hello")
-  };
   render() {
     return (
       <Provider store={store}>
+        <div className="App">
           <TaskList />
+        </div>
       </Provider>
     );
   }
