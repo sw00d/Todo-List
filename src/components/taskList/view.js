@@ -5,27 +5,13 @@ import Input from '../taskInput';
 import { FaAngleDown, FaAngleUp, FaTextHeight } from 'react-icons/fa';
 import { Droppable, Draggable, DragDropContext } from 'react-beautiful-dnd';
 
-const reorder =  (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
-// using some little inline style helpers to make the app look okay
-const grid = 8;
 const getItemStyle = (draggableStyle, isDragging) => ({
-
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
-
+  background: isDragging ? 'transparent' : 'grey',
   ...draggableStyle
 });
 const getListStyle = (isDraggingOver) => {
   return {
-    background: isDraggingOver ? 'lightblue' : 'lightgrey',
+    background: isDraggingOver ? 'lightblue' : 'transparent',
   }
 };
 
@@ -36,8 +22,6 @@ export default class List extends Component {
     super();
     this.state = {
       moveDisable: false,
-      edit: false,
-      dblclk: false
     }    
     this.input = React.createRef();
 
@@ -48,18 +32,6 @@ export default class List extends Component {
       dragToMove(result.source.index, result.destination.index);
     };
     //This disables buttons by checking if any inputs are checked
-    doubleClick() {
-      const self = this;
-      const { dblclk, edit } = this.state;
-      if (!dblclk) {
-        this.setState({dblclk: true});
-      } else {
-        this.setState({edit: true});
-        setTimeout(()=>console.log(this.input),100);
-      } 
-      
-      setTimeout(()=>self.setState({dblclk: false}), 500);
-    }
     handleKeyPress(e){
       const { value } = e.target;
       if (e.keyCode === 13 && value.length) {
@@ -74,7 +46,7 @@ export default class List extends Component {
 
     render() {
       const { tasks, down, up, checkItem } = this.props;
-      const { moveDisable, edit } = this.state;
+      const { moveDisable } = this.state;
       return (
         <DragDropContext onDragEnd={this.onDragEnd}>
 
@@ -109,11 +81,7 @@ export default class List extends Component {
                           />
                           <span className="checkmark" onClick={(e)=>checkItem(item.value)}></span>
                         </div>
-                        { edit ? 
-                          <input onKeyDown={(e)=>this.handleKeyPress(e)} value={item.value} type="text" />
-                          : <p onClick={()=>this.doubleClick()}>{item.value}</p> 
-                        }
-                        
+                          <input onKeyDown={(e)=>this.handleKeyPress(e)} value={item.value} type="text" />                        
                         <div className="ArrowContainer">
                           <button disabled={ moveDisable } onClick={(e)=>
                           {

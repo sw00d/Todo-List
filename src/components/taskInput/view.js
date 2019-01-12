@@ -31,7 +31,7 @@ class Input extends Component {
             className="TaskInput"
             onKeyPress={this.handleKeyPress} 
             onChange={(e)=>this.setState({task: e.target.value})} 
-            placeholder="Enter task to add"
+            placeholder="Enter New Task"
             value = {this.state.task}
             />
         </div>

@@ -9,8 +9,12 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          <TaskList />
+        <div className="Notepad">
+        <div class="Header">Staples</div>
+        <div class="RedLine"></div>
+          <div class="WorkArea">
+            <TaskList />
+          </div>
         </div>
       </Provider>
     );

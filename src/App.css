@@ -1,6 +1,48 @@
-.App {
+body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: darkgreen;
+    
+}
+.Notepad {
+    position: relative;
+    width: 800px;
+    height: 900px;
+    top: 10px;
+    background: #DDD464;
+}
+.WorkArea {
+    position: absolute;
+    top: 190px;
+    height: 77%;
+    width: 100%;
+    background: repeating-linear-gradient(#DDD464, 39px, #9198e5 20px, #9198e5 40px);
+}
+.Header {
+    width: 100%;
+    background: black;
+    height: 90px;
+    color: white;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    z-index: 2;
+}
+.RedLine {
+    z-index: 1;
+    position: absolute;
+    left: 130px;
+    top: 90px;
+    height: calc(100% - 90px);
+    width: 1px;
+    background: red;
+}
+.RedLine:after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    left: 5px;
+    background: red;    
 }
