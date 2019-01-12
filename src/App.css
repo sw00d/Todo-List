@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Patua+One');
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    font-family: 'Patua One', cursive;
 }
 .Notepad {
     position: relative;
