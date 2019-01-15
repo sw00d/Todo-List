@@ -2,19 +2,8 @@ import React, { Component } from 'react';
 import Style from './style.css';
 import CheckBoxStyle from './CheckBoxStyle.css';
 import Input from '../taskInput';
-import { FaAngleDown, FaAngleUp, FaTextHeight } from 'react-icons/fa';
+import { FaAngleDown, FaAngleUp, FaTrashAlt } from 'react-icons/fa';
 import { Droppable, Draggable, DragDropContext } from 'react-beautiful-dnd';
-
-const getItemStyle = (draggableStyle, isDragging) => ({
-  background: isDragging ? 'transparent' : 'grey',
-  ...draggableStyle
-});
-const getListStyle = (isDraggingOver) => {
-  return {
-    background: isDraggingOver ? 'lightblue' : 'transparent',
-  }
-};
-
 
 
 export default class List extends Component {
@@ -29,7 +18,8 @@ export default class List extends Component {
     onDragEnd = (result) => {
       // the only one that is required
       const { dragToMove } = this.props;
-      dragToMove(result.source.index, result.destination.index);
+      console.log(result.source)
+      if (result.source && result.destination) dragToMove(result.source.index, result.destination.index);
     };
     //This disables buttons by checking if any inputs are checked
     handleKeyPress(e){
@@ -55,7 +45,6 @@ export default class List extends Component {
               <div
                 class="MainContainer"
                 ref={provided.innerRef}
-                style={getListStyle(snapshot.isDraggingOver)}
               >
                 {tasks.map((item, i) => (
                   
@@ -68,7 +57,7 @@ export default class List extends Component {
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
-                        {...provided.dragHandleProps}   
+                        {...provided.dragHandleProps}  
                         className="Row"
                       >
                         <div className="checkContainer">
@@ -80,6 +69,7 @@ export default class List extends Component {
                             onChange={()=>console.log("change")}
                           />
                           <span className="checkmark" onClick={(e)=>checkItem(item.value)}></span>
+                          <div class="TrashCan"><FaTrashAlt color="#DDD464"/></div>
                         </div>
                           <input onKeyDown={(e)=>this.handleKeyPress(e)} value={item.value} type="text" />                        
                         <div className="ArrowContainer">
@@ -102,7 +92,7 @@ export default class List extends Component {
                   </Draggable>
 
                 ))}
-              <div className="Row"><Input /></div>
+              <div className="Row TaskRow"><Input /></div>
               </div>
             )}
           </Droppable>

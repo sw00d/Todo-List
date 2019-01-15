@@ -14,8 +14,8 @@ body {
 }
 .WorkArea {
     position: absolute;
-    top: 190px;
-    height: 77%;
+    top: 160px;
+    height: 80%;
     width: 100%;
     background: repeating-linear-gradient(#DDD464, 39px, #9198e5 20px, #9198e5 40px);
 }
