@@ -1,6 +1,6 @@
 import view from "./view";
 import { connect } from 'react-redux';
-import { checkItem, moveUp, moveDown, dragToMove, updateValue } from './actions';
+import { checkItem, moveUp, moveDown, dragToMove, updateValue, deleteTask } from './actions';
 const mapStateToProps = state => {
     const { tasks } = state.generalReducer
     return {tasks};
@@ -12,7 +12,8 @@ const mapDispatchToProps = dispatch => {
         down: (e)=>dispatch(moveDown(e)),
         dragToMove: (from, to)=>dispatch(dragToMove(from, to)),
         updateValue: (oldVal, newVal)=>dispatch(updateValue(oldVal, newVal)),
-        checkItem: (val)=>dispatch(checkItem(val))
+        checkItem: (idx)=>dispatch(checkItem(idx)),
+        deleteTask: (idx)=>dispatch(deleteTask(idx))
     };
 
 } 

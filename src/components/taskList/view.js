@@ -22,20 +22,20 @@ export default class List extends Component {
       if (result.source && result.destination) dragToMove(result.source.index, result.destination.index);
     };
     //This disables buttons by checking if any inputs are checked
-    handleKeyPress(e){
+    handleKeyPress(e, i){
       const { value } = e.target;
       if (e.keyCode === 13 && value.length) {
         this.setState({edit: false});
         return;
       }
       // if (this.input.current) console.log(this.input.current);
-      if (e.keyCode === 8) this.props.updateValue(value, value.substring(0, value.length-1));
-      else if (e.keyCode >= 65 && e.keyCode <= 90) this.props.updateValue(value, value+e.key);
+      if (e.keyCode === 8) this.props.updateValue(i, value.substring(0, value.length-1));
+      else if (e.keyCode >= 65 && e.keyCode <= 90) this.props.updateValue(i, value+e.key);
     }
 
 
     render() {
-      const { tasks, down, up, checkItem } = this.props;
+      const { tasks, down, up, checkItem, deleteTask } = this.props;
       const { moveDisable } = this.state;
       return (
         <DragDropContext onDragEnd={this.onDragEnd}>
@@ -68,10 +68,18 @@ export default class List extends Component {
                             checked={item.checked} 
                             onChange={()=>console.log("change")}
                           />
-                          <span className="checkmark" onClick={(e)=>checkItem(item.value)}></span>
-                          <div class="TrashCan"><FaTrashAlt color="#DDD464"/></div>
+                          <span className="checkmark" onClick={()=>checkItem(i)}></span>
+                          <div 
+                            class="TrashCan"
+                            onClick={()=>deleteTask(i)}
+                          ><FaTrashAlt color="#DDD464"/></div>
                         </div>
-                          <input onKeyDown={(e)=>this.handleKeyPress(e)} value={item.value} type="text" />                        
+                          <input 
+                            onChange={()=>{}}
+                            onKeyDown={(e)=>this.handleKeyPress(e, i)} 
+                            value={item.value} 
+                            type="text" 
+                          />                        
                         <div className="ArrowContainer">
                           <button disabled={ moveDisable } onClick={(e)=>
                           {

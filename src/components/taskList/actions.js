@@ -9,15 +9,11 @@ Array.prototype.move = function (from, to) {
     this.splice(to, 0, this.splice(from, 1)[0]);
 };
 
-export const updateValue = (oldVal, newVal) => {
-    const newTaskList = store.getState().generalReducer.tasks;
 
-    for (let i in newTaskList){
-        if (newTaskList[i].value === oldVal){
-            newTaskList[i].value = newVal
-            break;
-        }
-    }
+//All Actions for handling tasks
+export const updateValue = (i, newVal) => {
+    const newTaskList = store.getState().generalReducer.tasks;
+    newTaskList[i].value = newVal;
     return {
         type: CHANGE_TASK_ORDER,
         newTaskList
@@ -49,15 +45,18 @@ export const moveDown = (index) => {
     };
 }
 
-export const checkItem = (val) => {
+export const checkItem = (idx) => {
     const newTaskList = store.getState().generalReducer.tasks;
-    console.log(val);
-    for (let i in newTaskList){
-        if (newTaskList[i].value === val){
-            newTaskList[i].checked = !newTaskList[i].checked
-            break;
-        }
+    newTaskList[idx].checked = !newTaskList[idx].checked
+    return {
+        type: CHANGE_TASK_ORDER,
+        newTaskList
     }
+}
+
+export const deleteTask = (idx) => {
+    const newTaskList = store.getState().generalReducer.tasks;
+    newTaskList.splice(idx,1)
     return {
         type: CHANGE_TASK_ORDER,
         newTaskList
