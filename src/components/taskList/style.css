@@ -11,7 +11,7 @@
     top:40px;
 }
 .CheckBox {
-    display: none;
+    display: none;  cursor: default;
 }
 .Row {
     display: flex;
@@ -19,12 +19,15 @@
     height: 40px;
 }
 .Row > input, .Row > p {
+    position: absolute;
     border: none;
     outline: none;
     font-size: 25px;
     font-family: 'Indie Flower', cursive;
     background: transparent;
     width: 30%;
+    left: 170px;
+    z-index: 100;
 }
 .Row > input::placeholder {
     color: black;
@@ -42,23 +45,37 @@
     display: flex;
     opacity: 1;
     transition: .5s;
+    cursor: pointer;
+    position: absolute;
+    left: 70px;
+}
+.Row:hover > .ArrowContainer {
+    right: 0px;
 
 }
 
 .ArrowContainer {
+    position: absolute;
+    right: -20px;
     display: flex;
     opacity: 0;
     height: 100%;
     position: absolute;
-    right: 0px;    
 }
-.ArrowContainer > button {
+.ArrowContainer > div {
+    position: absolute;
+    right: 0px;
+    height: 100%;
+}
+.ArrowContainer > div > button {
     height: 100%;
     outline: none;
     border: none;
     color: #424242;
     width: 40px;
-    background: transparent;
+    background:transparent;
+    cursor: pointer;
+
 }
 .ArrowContainer >button:active, .AddTaskContainer:active {
     color: black;
@@ -115,6 +132,8 @@
 .AddTaskContainer {
     position: absolute;
     right: 30px;
+    cursor: pointer;
+
 }
 
 

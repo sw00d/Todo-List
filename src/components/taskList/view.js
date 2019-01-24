@@ -28,9 +28,11 @@ export default class List extends Component {
         this.setState({edit: false});
         return;
       }
-      // if (this.input.current) console.log(this.input.current);
-      if (e.keyCode === 8) this.props.updateValue(i, value.substring(0, value.length-1));
-      else if (e.keyCode >= 65 && e.keyCode <= 90) this.props.updateValue(i, value+e.key);
+      if (e.keyCode === 8 ) this.props.updateValue(i, value.substring(0, value.length-1));
+      else if (
+        e.keyCode >= 65 && 
+        e.keyCode <= 90 &&
+        value.length < 20) this.props.updateValue(i, value+e.key);
     }
 
 
@@ -74,26 +76,29 @@ export default class List extends Component {
                             onClick={()=>deleteTask(i)}
                           ><FaTrashAlt color="#DDD464"/></div>
                         </div>
-                          <input 
+                          <input
+                            maxLength="5"
                             onChange={()=>{}}
                             onKeyDown={(e)=>this.handleKeyPress(e, i)} 
                             value={item.value} 
                             type="text" 
                           />                        
                         <div className="ArrowContainer">
-                          <button disabled={ moveDisable } onClick={(e)=>
-                          {
-                            up(i); 
-                            e.stopPropagation()
-                            }
-                          }><FaAngleUp /></button>
+                          <div>
+                            <button disabled={ moveDisable } onClick={(e)=>
+                            {
+                              up(i); 
+                              e.stopPropagation()
+                              }
+                            }><FaAngleUp /></button>
 
-                          <button disabled={ moveDisable } onClick={(e)=>
-                          {
-                            down(i) 
-                            e.stopPropagation()
-                            }
-                          }><FaAngleDown /></button>
+                            <button disabled={ moveDisable } onClick={(e)=>
+                            {
+                              down(i) 
+                              e.stopPropagation()
+                              }
+                            }><FaAngleDown /></button>
+                          </div>
                         </div>
                        </div>
                     )}

@@ -30,6 +30,11 @@ body {
     align-self: center;
     z-index: 2;
 }
+.Header > h1 {
+    font-size: 40px;
+    font-family: 'Patua One', cursive;
+    letter-spacing: 3px;
+}
 .RedLine {
     z-index: 1;
     position: absolute;
