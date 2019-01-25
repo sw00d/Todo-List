@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { addTask } from './actions';
 
 const mapStateToProps = state => {
-    return {asdf: "pomc"};
+    return {tasks: state.generalReducer.tasks};
 }
 
 const mapDispatchToProps = dispatch => {

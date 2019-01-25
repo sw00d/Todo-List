@@ -5,13 +5,14 @@ class Input extends Component {
   constructor(){
     super();
     this.state = {
-      task: ''
+      task: '',
+      hide: false
     }
     this.addTask = this.addTask.bind(this);
   }
 
   handleKeyPress = (e) => {
-    if(e.key === 'Enter'){
+    if(e.key === 'Enter' && this.props.tasks.length < 16){
       this.addTask(e.target.value);
     }
   }
@@ -27,13 +28,16 @@ class Input extends Component {
     return (
       <div className="InputContainer">
         <div className="checkContainer TaskInputContainer">
-          <input 
-            className="TaskInput"
-            onKeyPress={this.handleKeyPress} 
-            onChange={(e)=>this.setState({task: e.target.value})} 
-            placeholder="Enter New Task"
-            value = {this.state.task}
-            />
+          {
+            (!this.state.hide) ? 
+            <input 
+              className="TaskInput"
+              onKeyPress={this.handleKeyPress} 
+              onChange={(e)=>this.setState({task: e.target.value})} 
+              placeholder="Enter New Task"
+              value = {this.state.task}
+            /> : null
+          }
         </div>
         <div className="AddTaskContainer">
           <GoPlus className="AddBtn" onClick={this.addTask} />

@@ -23,16 +23,13 @@ export default class List extends Component {
     };
     //This disables buttons by checking if any inputs are checked
     handleKeyPress(e, i){
+      const { tasks, updateValue } = this.props;
       const { value } = e.target;
-      if (e.keyCode === 13 && value.length) {
-        this.setState({edit: false});
-        return;
-      }
-      if (e.keyCode === 8 ) this.props.updateValue(i, value.substring(0, value.length-1));
+      if (e.keyCode === 8) updateValue(i, value.substring(0, value.length-1));
       else if (
         e.keyCode >= 65 && 
         e.keyCode <= 90 &&
-        value.length < 20) this.props.updateValue(i, value+e.key);
+        value.length < 2000) updateValue(i, value+e.key);
     }
 
 
@@ -45,7 +42,7 @@ export default class List extends Component {
           <Droppable droppableId="droppable">
             {(provided, snapshot) => (
               <div
-                class="MainContainer"
+                className="MainContainer"
                 ref={provided.innerRef}
               >
                 {tasks.map((item, i) => (
@@ -72,7 +69,7 @@ export default class List extends Component {
                           />
                           <span className="checkmark" onClick={()=>checkItem(i)}></span>
                           <div 
-                            class="TrashCan"
+                            className="TrashCan"
                             onClick={()=>deleteTask(i)}
                           ><FaTrashAlt color="#DDD464"/></div>
                         </div>
@@ -115,23 +112,3 @@ export default class List extends Component {
       );
     }
   }
-  // <div className="checkContainer">
-  //   <input className="CheckBox" type="checkbox" />
-  //   <span className="checkmark" onClick={(e)=>this.checkItem(e)}></span>
-  // </div>
-  // <input placeholder={text} type="text" />
-  // <div className="ArrowContainer">
-  //   <button disabled={ moveDisable } onClick={(e)=>
-  //   {
-  //     up(i); 
-  //     e.stopPropagation()
-  //     }
-  //   }><FaAngleUp /></button>
-
-  //   <button disabled={ moveDisable } onClick={(e)=>
-  //   {
-  //     down(i) 
-  //     e.stopPropagation()
-  //     }
-  //   }><FaAngleDown /></button>
-  // </div>

@@ -10,13 +10,13 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="Notepad">
-        <div class="Header">
+        <div className="Header">
           <h1>
             My To-do's
           </h1>
           </div>
-        <div class="RedLine"></div>
-          <div class="WorkArea">
+        <div className="RedLine"></div>
+          <div className="WorkArea">
             <TaskList />
           </div>
         </div>
