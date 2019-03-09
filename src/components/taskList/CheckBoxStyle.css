@@ -12,7 +12,6 @@
   justify-content: center;
 }
   
-/* Create a custom checkbox */
 .checkmark {
   cursor: pointer;
   height: 25px;
@@ -21,29 +20,24 @@
   background-color: #eee;
 }
 
-/* On mouse-over, add a grey background color */
 .checkContainer:hover input ~ .checkmark {
-  background-color: #ccc;
+  background-color: #fff;
 }
 
-/* When the checkbox is checked, add a blue background */
 .checkContainer input:checked ~ .checkmark {
   background-color: green;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show the checkmark when checked */
 .checkContainer input:checked ~ .checkmark:after {
   display: block;
 }
 
-/* Style the checkmark/indicator */
 .checkmark:after {
   left: 35px;
   top: 13px;

@@ -28,13 +28,12 @@
     width: 30%;
     left: 170px;
     z-index: 1;
-    width: 70%;
 }
 .Row > input::placeholder {
     color: black;
 }
 .Row:hover {
-    background: rgba(255, 238, 0, 0.1);
+    background: rgba(255, 238, 0, 0.3);
 }
 .Row:active {
     background: rgba(255, 238, 0, 0.1);
@@ -111,11 +110,15 @@
     height: 90%;
     background:transparent;
     color: black;
+    font-size: 22px;
+    font-family: 'Indie Flower', cursive;
     text-align: center;
 }
 .TaskInput::placeholder {
-    color:black;
-    font-size: 15px;
+    color:rgba(0, 0, 0, 0.548);
+    font-size: 22px;
+    font-family: 'Indie Flower', cursive;
+
 }
 .TaskRow:active {
     background: transparent !important;

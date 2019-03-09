@@ -11,9 +11,10 @@ export default class List extends Component {
     super();
     this.state = {
       moveDisable: false,
+      width: 10
     }    
     this.input = React.createRef();
-
+    this.getWidth = this.getWidth.bind();
   }
     onDragEnd = (result) => {
       // the only one that is required
@@ -27,15 +28,24 @@ export default class List extends Component {
       const { value } = e.target;
       if (e.keyCode === 8) updateValue(i, value.substring(0, value.length-1));
       else if (
-        e.keyCode >= 65 && 
-        e.keyCode <= 90 &&
-        value.length < 2000) updateValue(i, value+e.key);
+        (e.keyCode >= 65 && 
+        e.keyCode <= 90) ||
+        e.keyCode === 32) {
+          updateValue(i, value+e.key);
+        }
     }
 
+    getWidth(val){
+      if (val){
+        if (val.length < 9)return 100;
+        else if (val.length < 43) return val.length*12;
+        else return 500;
+      } else return 100;
+    }
 
     render() {
       const { tasks, down, up, checkItem, deleteTask } = this.props;
-      const { moveDisable } = this.state;
+      const { width, moveDisable } = this.state;
       return (
         <DragDropContext onDragEnd={this.onDragEnd}>
 
@@ -74,11 +84,15 @@ export default class List extends Component {
                           ><FaTrashAlt color="#DDD464"/></div>
                         </div>
                           <input
-                            maxLength="5"
-                            onChange={()=>{}}
                             onKeyDown={(e)=>this.handleKeyPress(e, i)} 
                             value={item.value} 
                             type="text" 
+                            style={{
+                              /*This calculates width of given input 
+                                based on length of the input's value
+                              */
+                              width: this.getWidth(item.value)
+                            }}
                           />                        
                         <div className="ArrowContainer">
                           <div>
