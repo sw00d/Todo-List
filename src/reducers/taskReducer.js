@@ -3,8 +3,7 @@ import { CHANGE_TASK_ORDER } from "../components/taskList/actions"
 
 
 export default (state = {
-  tasks:[
-    {value: 'one', checked: false}, {value: 'two', checked: false}, {value: 'three', checked: false}, {value: 'four', checked: false}]
+  tasks:[]
   }
   , action) => {
   switch(action.type){
