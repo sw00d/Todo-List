@@ -20,7 +20,7 @@ class Input extends Component {
   addTask = (e) =>{
     const {addTask} = this.props;
     const { task } = this.state;
-    if (task.length) addTask(task);
+    if (task.length && this.props.tasks.length < 16) addTask(task);
     this.setState({task: ''});
   }
 

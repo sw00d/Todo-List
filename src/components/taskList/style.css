@@ -5,6 +5,9 @@
     75% {transform: rotate(30deg)}
 
 }
+@keyframes Flash {
+    to{opacity: .5;}
+}
 .MainContainer {
     width: 100%;
     position: absolute;
@@ -12,6 +15,14 @@
 }
 .CheckBox {
     display: none;  cursor: default;
+}
+.dragAlert {
+    position: absolute;
+    left: 37%;
+    font-size: 40px;
+    top: -120px;
+    opacity: 0;
+    color: rgb(65, 65, 65);
 }
 .Row {
     display: flex;
@@ -35,6 +46,11 @@
 .Row:hover {
     background: rgba(255, 238, 0, 0.3);
 }
+.Row:hover  ~ .dragAlert{
+    animation: 1s Flash infinite alternate;
+    animation-delay: 3s;
+}
+.Row:hover
 .Row:active {
     background: rgba(255, 238, 0, 0.1);
 }

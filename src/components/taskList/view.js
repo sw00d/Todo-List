@@ -52,22 +52,22 @@ export default class List extends Component {
           <Droppable droppableId="droppable">
             {(provided, snapshot) => (
               <div
-                className="MainContainer"
-                ref={provided.innerRef}
+              className="MainContainer"
+              ref={provided.innerRef}
               >
                 {tasks.map((item, i) => (
                   
                   <Draggable
-                    key={i}
-                    index={i}
-                    draggableId={i+1}
+                  key={i}
+                  index={i}
+                  draggableId={i+1}
                   >
                     {(provided, snapshot) => (
                       <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}  
-                        className="Row"
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}  
+                      className="Row"
                       >
                         <div className="checkContainer">
                           <input
@@ -89,9 +89,9 @@ export default class List extends Component {
                             type="text" 
                             style={{
                               /*This calculates width of given input 
-                                based on length of the input's value
+                              based on length of the input's value
                               */
-                              width: this.getWidth(item.value)
+                             width: this.getWidth(item.value)
                             }}
                           />                        
                         <div className="ArrowContainer">
@@ -100,15 +100,15 @@ export default class List extends Component {
                             {
                               up(i); 
                               e.stopPropagation()
-                              }
-                            }><FaAngleUp /></button>
+                            }
+                          }><FaAngleUp /></button>
 
                             <button disabled={ moveDisable } onClick={(e)=>
                             {
                               down(i) 
                               e.stopPropagation()
-                              }
-                            }><FaAngleDown /></button>
+                            }
+                          }><FaAngleDown /></button>
                           </div>
                         </div>
                        </div>
@@ -116,6 +116,7 @@ export default class List extends Component {
                   </Draggable>
 
                 ))}
+              <p class="dragAlert">DRAG TO MOVE</p>
               <div className="Row TaskRow"><Input /></div>
               </div>
             )}
