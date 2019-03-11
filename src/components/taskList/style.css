@@ -48,7 +48,7 @@
 }
 .Row:hover  ~ .dragAlert{
     animation: 1s Flash infinite alternate;
-    animation-delay: 3s;
+    animation-delay: 1s;
 }
 .Row:hover
 .Row:active {
