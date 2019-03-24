@@ -43,6 +43,13 @@ export default class List extends Component {
       } else return 100;
     }
 
+    deleteTask(i){
+      const { deleteTask } = this.props;
+      deleteTask(i);
+      this.props.decrementInput();
+
+    }
+
     render() {
       const { tasks, down, up, checkItem, deleteTask } = this.props;
       const { width, moveDisable } = this.state;
@@ -55,6 +62,7 @@ export default class List extends Component {
               className="MainContainer"
               ref={provided.innerRef}
               >
+
                 {tasks.map((item, i) => (
                   
                   <Draggable
@@ -69,6 +77,7 @@ export default class List extends Component {
                       {...provided.dragHandleProps}  
                       className="Row"
                       >
+
                         <div className="checkContainer">
                           <input
                             ref={this.input} 
@@ -80,10 +89,11 @@ export default class List extends Component {
                           <span className="checkmark" onClick={()=>checkItem(i)}></span>
                           <div 
                             className="TrashCan"
-                            onClick={()=>deleteTask(i)}
+                            onClick={()=>this.deleteTask(i)}
                           ><FaTrashAlt color="#DDD464"/></div>
                         </div>
                           <input
+                            onChange={()=>{}}
                             onKeyDown={(e)=>this.handleKeyPress(e, i)} 
                             value={item.value} 
                             type="text" 
@@ -116,8 +126,8 @@ export default class List extends Component {
                   </Draggable>
 
                 ))}
-              <p class="dragAlert">DRAG TO MOVE</p>
-              <div className="Row TaskRow"><Input /></div>
+              <p className="dragAlert">DRAG TO MOVE</p>
+              <Input />
               </div>
             )}
           </Droppable>

@@ -1,32 +1,41 @@
 import React, { Component } from 'react';
 import { GoPlus } from 'react-icons/go';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Input extends Component {
   constructor(){
     super();
     this.state = {
       task: '',
-      hide: false
+      hide: false,
     }
     this.addTask = this.addTask.bind(this);
+    this.task = React.createRef();
   }
 
   handleKeyPress = (e) => {
-    if(e.key === 'Enter' && this.props.tasks.length < 16){
-      this.addTask(e.target.value);
+    const { tasks, incrementInput, addTask} = this.props;
+    const { value } = e.target
+    if(e.key === 'Enter' && tasks.length < 16 && value.length){
+      incrementInput();
+      addTask(value);
+      this.setState({task: ''});
     }
   }
-
-  addTask = (e) =>{
-    const {addTask} = this.props;
+  
+  addTask = () =>{
+    const { incrementInput, addTask } = this.props;
     const { task } = this.state;
-    if (task.length && this.props.tasks.length < 16) addTask(task);
+    if (task.length && this.props.tasks.length < 16) {
+      incrementInput();
+      addTask(task);
+    }
     this.setState({task: ''});
   }
-
+  
   render() {
     return (
-      <div className="InputContainer">
+      <div className="InputContainer" style={{top: this.props.inputVal}}> 
         <div className="checkContainer TaskInputContainer">
           {
             (!this.state.hide) ? 
@@ -42,7 +51,6 @@ class Input extends Component {
         <div className="AddTaskContainer">
           <GoPlus className="AddBtn" onClick={this.addTask} />
         </div>
-
       </div>
     );
   }

@@ -1,11 +1,12 @@
-import { ADD_TASK } from "../components/taskInput/actions"
+import { ADD_TASK, INPUT_UPDATE } from "../components/taskInput/actions"
 import { CHANGE_TASK_ORDER } from "../components/taskList/actions"
 
 
-export default (state = {
-  tasks:[]
-  }
-  , action) => {
+export default (
+  state = { tasks:[], inputVal: 0 }, 
+  action
+  ) => {
+
   switch(action.type){
 
     case CHANGE_TASK_ORDER:
@@ -20,6 +21,12 @@ export default (state = {
       return {
         ...state, 
         tasks: state.tasks.concat(task)
+      }
+    case INPUT_UPDATE:
+      const {newInputVal} = action;
+      return {
+        ...state,
+          inputVal: newInputVal
       }
 
     default:

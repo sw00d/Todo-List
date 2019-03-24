@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "react": "^16.7.0-alpha.2",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-beautiful-dnd": "^10.0.3",
     "react-dom": "^16.7.0-alpha.2",
     "react-icons": "^3.2.2",

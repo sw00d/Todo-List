@@ -47,7 +47,7 @@ export const moveDown = (index) => {
 
 export const checkItem = (idx) => {
     const newTaskList = store.getState().generalReducer.tasks;
-    newTaskList[idx].checked = !newTaskList[idx].checked
+    newTaskList[idx].checked = !newTaskList[idx].checked;
     return {
         type: CHANGE_TASK_ORDER,
         newTaskList
@@ -56,7 +56,7 @@ export const checkItem = (idx) => {
 
 export const deleteTask = (idx) => {
     const newTaskList = store.getState().generalReducer.tasks;
-    newTaskList.splice(idx,1)
+    newTaskList.splice(idx,1);
     return {
         type: CHANGE_TASK_ORDER,
         newTaskList

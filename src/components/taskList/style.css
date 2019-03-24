@@ -8,6 +8,17 @@
 @keyframes Flash {
     to{opacity: .5;}
 }
+
+
+
+.down {
+    transform: translateY(40px);
+
+    /* opacity: 0; */
+}
+
+
+
 .MainContainer {
     width: 100%;
     position: absolute;
@@ -146,6 +157,8 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    transition: 1s;
+    position: absolute;
 }
 .TaskInputContainer {
     width: 90% !important;
@@ -157,6 +170,8 @@
     cursor: pointer;
 
 }
+
+
 
 
 
