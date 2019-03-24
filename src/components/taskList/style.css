@@ -13,8 +13,6 @@
 
 .down {
     transform: translateY(40px);
-
-    /* opacity: 0; */
 }
 
 
@@ -27,18 +25,11 @@
 .CheckBox {
     display: none;  cursor: default;
 }
-.dragAlert {
-    position: absolute;
-    left: 37%;
-    font-size: 40px;
-    top: -120px;
-    opacity: 0;
-    color: rgb(65, 65, 65);
-}
 .Row {
     display: flex;
     position: relative;
     height: 40px;
+    transition: 2s box-shadow;
 }
 .Row > input, .Row > p {
     position: absolute;
@@ -55,11 +46,7 @@
     color: black;
 }
 .Row:hover {
-    background: rgba(255, 238, 0, 0.3);
-}
-.Row:hover  ~ .dragAlert{
-    animation: 1s Flash infinite alternate;
-    animation-delay: 1s;
+    box-shadow: 0px 0px 5px 0px;
 }
 .Row:hover
 .Row:active {

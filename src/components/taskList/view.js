@@ -126,7 +126,6 @@ export default class List extends Component {
                   </Draggable>
 
                 ))}
-              <p className="dragAlert">DRAG TO MOVE</p>
               <Input />
               </div>
             )}
