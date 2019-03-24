@@ -18,6 +18,7 @@
   width: 25px;
   border-radius: 100%;
   background-color: #eee;
+  transition: .3s;
 }
 
 .checkContainer:hover input ~ .checkmark {

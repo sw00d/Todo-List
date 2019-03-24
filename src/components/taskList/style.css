@@ -8,6 +8,9 @@
 @keyframes Flash {
     to{opacity: .5;}
 }
+@keyframes FadeIn {
+    to{opacity: 1;}
+}
 
 
 
@@ -29,6 +32,8 @@
     display: flex;
     position: relative;
     height: 40px;
+    opacity: 0;
+    animation: FadeIn .2s linear 1 forwards; 
     transition: 2s box-shadow;
 }
 .Row > input, .Row > p {
@@ -50,7 +55,8 @@
 }
 .Row:hover
 .Row:active {
-    background: rgba(255, 238, 0, 0.1);
+    box-shadow: 0px 0px 5px 0px;
+    background:green;
 }
 .Row:hover > .ArrowContainer, 
 .Row:active > .ArrowContainer,
@@ -144,7 +150,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    transition: 1s;
+    transition: .5s;
     position: absolute;
 }
 .TaskInputContainer {

@@ -7,7 +7,6 @@ class Input extends Component {
     super();
     this.state = {
       task: '',
-      hide: false,
     }
     this.addTask = this.addTask.bind(this);
     this.task = React.createRef();
@@ -37,16 +36,13 @@ class Input extends Component {
     return (
       <div className="InputContainer" style={{top: this.props.inputVal}}> 
         <div className="checkContainer TaskInputContainer">
-          {
-            (!this.state.hide) ? 
             <input 
               className="TaskInput"
               onKeyPress={this.handleKeyPress} 
               onChange={(e)=>this.setState({task: e.target.value})} 
               placeholder="Enter New Task"
               value = {this.state.task}
-            /> : null
-          }
+            />
         </div>
         <div className="AddTaskContainer">
           <GoPlus className="AddBtn" onClick={this.addTask} />

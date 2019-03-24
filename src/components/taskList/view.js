@@ -8,23 +8,19 @@ import { Droppable, Draggable, DragDropContext } from 'react-beautiful-dnd';
 
 export default class List extends Component {
   constructor(){
-    super();
-    this.state = {
-      moveDisable: false,
-      width: 10
-    }    
+    super();   
     this.input = React.createRef();
     this.getWidth = this.getWidth.bind();
   }
     onDragEnd = (result) => {
       // the only one that is required
       const { dragToMove } = this.props;
-      console.log(result.source)
       if (result.source && result.destination) dragToMove(result.source.index, result.destination.index);
     };
-    //This disables buttons by checking if any inputs are checked
+
+    //Disables buttons by checking if any inputs are checked
     handleKeyPress(e, i){
-      const { tasks, updateValue } = this.props;
+      const { updateValue } = this.props;
       const { value } = e.target;
       if (e.keyCode === 8) updateValue(i, value.substring(0, value.length-1));
       else if (
@@ -44,38 +40,36 @@ export default class List extends Component {
     }
 
     deleteTask(i){
-      const { deleteTask } = this.props;
+      const { deleteTask, decrementInput } = this.props;
       deleteTask(i);
-      this.props.decrementInput();
-
+      decrementInput();
     }
 
     render() {
-      const { tasks, down, up, checkItem, deleteTask } = this.props;
-      const { width, moveDisable } = this.state;
+      const { tasks, down, up, checkItem } = this.props;
       return (
         <DragDropContext onDragEnd={this.onDragEnd}>
 
           <Droppable droppableId="droppable">
-            {(provided, snapshot) => (
+            {(provided) => (
               <div
-              className="MainContainer"
-              ref={provided.innerRef}
+                className="MainContainer"
+                ref={provided.innerRef}
               >
 
                 {tasks.map((item, i) => (
                   
                   <Draggable
-                  key={i}
-                  index={i}
-                  draggableId={i+1}
+                    key={i}
+                    index={i}
+                    draggableId={i+1}
                   >
-                    {(provided, snapshot) => (
+                    {(provided) => (
                       <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}  
-                      className="Row"
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}  
+                        className="Row"
                       >
 
                         <div className="checkContainer">
@@ -106,14 +100,14 @@ export default class List extends Component {
                           />                        
                         <div className="ArrowContainer">
                           <div>
-                            <button disabled={ moveDisable } onClick={(e)=>
+                            <button onClick={(e)=>
                             {
                               up(i); 
                               e.stopPropagation()
                             }
                           }><FaAngleUp /></button>
 
-                            <button disabled={ moveDisable } onClick={(e)=>
+                            <button onClick={(e)=>
                             {
                               down(i) 
                               e.stopPropagation()
@@ -126,7 +120,7 @@ export default class List extends Component {
                   </Draggable>
 
                 ))}
-              <Input />
+                <Input />
               </div>
             )}
           </Droppable>
